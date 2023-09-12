@@ -1,0 +1,19 @@
+Based on the architecture diagram, and the steps you have taken so far to upload data and access the application web service, identify at least 2 obvious poor practices as it relates to security.  Include justification.
+
+# Poor practice 1
+    - The Web Service EC2 Instance:
+        + in the public subnet
+        + port 5000 open to the internet
+        + does not have HTTPS port 443 open.
+    - Should be changed with:
+        + should be in the private subnet in order not to be exposed to the internet
+        + use port 443 instead of port 80
+        + only allow communication on port 5000 from the AppLoadBalancerSG.
+    - The DefaultPrivateRoute1 and DefaultPrivateRoute2 tables have DestinationCidrBlock: 0.0.0.0/0
+    - That means if a resource within the private subnets gets under malicious control, it could communicate with any endpoint on the internet.
+
+# Poor practice 2
+    IAM Permissions for EC2 Instances:
+    In the InstanceRole defined in the app.yml template, the IAM role seems to have overly broad permissions by allowing all actions (s3:*) on all S3 resources (Resource: '*'). 
+    This is not a good security practice because it grants instances more permissions than they might need. 
+    It's crucial to follow the principle of least privilege and restrict IAM permissions to only the actions and resources necessary for your application.
