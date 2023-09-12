@@ -1,0 +1,30 @@
+Research and analyze which of the vulnerabilities appear to be related to the code that was deployed for the environment in this project.
+
+Vulnerabilities:
+    1. The root user does have MFA.
+    2. The IAM password policy is not specified.
+    3. CloudTrail has not been enabled and configured for multi-region..
+    4. Security groups allow ingress from 0.0.0.0/0 to port 3389.
+    5. Security groups allow ingress from 0.0.0.0/0 to port 22.
+    6. The VPC default security group allow inbound and outbound traffic.
+    7. IAM policies allow full "*" administrative privileges.
+    8. Port range 0 to 65535 is reachable from an Internet Gateway - UDP/TCP - EC2 instance.
+    9. Port 5000 is reachable from an Internet Gateway - TCP - EC2 instance.
+    10. Port 80 is reachable from an Internet Gateway - TCP - EC2 instance.
+    11. Port 22 is reachable from an Internet Gateway - TCP - EC2 instance.
+    12. S3 bucket logging not enabled.
+    13. Application Load Balancer does not have configured to redirect all HTTP requests to HTTPS
+
+Bonus - provide recommendations on how to remediate the vulnerabilities:
+    1. Setup MFA for The root user.
+    2. Password policies for IAM users should have strong configurations. Ensure IAM password policy requires at least one (uppercase letter, lowercase letter, symbol, number), minimum password length of 14 or greater, prevents password reuse, expires passwords within 90 days or less.
+    3. CloudTrail should be enabled and configured with at least one multi-Region trail that includes read and write management events.
+    4. Ensure no security groups allow ingress from 0.0.0.0/0 to port 3389
+    5. Security groups should not allow ingress from 0.0.0.0/0 to port 22
+    6. The VPC default security group should not allow inbound and outbound traffic
+    7. IAM policies should not allow full "*" administrative privileges
+    8. EC2 instances should not have a public IPv4 address.
+    9. Security groups should not allow unrestricted access to ports with high risk
+    10. Network ACLs should not allow ingress from 0.0.0.0/0 to port 22 or port 3389
+    11. S3 bucket logging enabled.
+    12. Application Load Balancer should be configured to redirect all HTTP requests to HTTPS
