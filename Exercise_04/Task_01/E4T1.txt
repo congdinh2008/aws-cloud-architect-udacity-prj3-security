@@ -1,0 +1,35 @@
+# Identify 2-3 changes that can be made to our environment to prevent an ssh brute force attack from the internet.
+
+Implement Network Security Controls:
+    Use Security Groups and Network ACLs: 
+        In AWS, utilize security groups and network ACLs to restrict incoming SSH traffic (port 22) to only trusted IP addresses or IP ranges. 
+        By default, AWS security groups are stateful, while network ACLs are stateless. Use security groups to define inbound rules for specific instances and network ACLs to control traffic at the subnet level. 
+        Restricting SSH access to known and trusted IP addresses significantly reduces the risk of brute force attacks.
+    Implement a Bastion Host: 
+        Deploy a bastion host (also known as a jump host or a bastion server) in a public subnet and configure SSH access to your instances through the bastion host. 
+        Restrict SSH access to the bastion host and configure it to only allow SSH connections from authorized IP addresses. This adds an extra layer of security and access control.
+    Use AWS Systems Manager Session Manager: 
+        Instead of exposing SSH ports to the internet, consider using AWS Systems Manager Session Manager for secure remote access to your instances. 
+        Session Manager provides fine-grained access control and session logging without the need to open inbound ports in your security groups.
+
+# Neither instance should have had access to the secret recipes bucket, in the even that instance API credentials were compromised how could we have prevented access to sensitive data.
+
+Implement Data Access Controls:
+    AWS IAM and Bucket Policies: 
+        To prevent unauthorized access to sensitive data stored in the S3 bucket, configure AWS Identity and Access Management (IAM) policies and bucket policies to restrict access to only authorized IAM users and roles. 
+        Avoid using overly permissive policies such as s3:* and use the principle of least privilege to grant access only to the necessary resources and actions.
+    Encryption: 
+        Ensure that data at rest in the S3 bucket is encrypted using server-side encryption (SSE). You can use Amazon S3-managed keys (SSE-S3), AWS Key Management Service (SSE-KMS), or a customer-provided key (SSE-C). 
+        This adds an extra layer of protection even if access is somehow obtained.
+    Audit Access: 
+        Enable AWS CloudTrail to monitor access to the S3 bucket. CloudTrail provides detailed logging of API calls and can help you track who accessed the data and when. 
+        Set up S3 bucket access logging to capture details of object-level access
+
+# More
+Implement Monitoring and Alerting:
+    Intrusion Detection and Monitoring: 
+        Set up intrusion detection systems and continuous monitoring to detect and respond to suspicious SSH login attempts and unusual behavior on your instances. 
+        AWS provides services like AWS GuardDuty and AWS CloudWatch Logs for this purpose.
+    Security Incident Response: 
+        Develop an incident response plan that outlines steps to be taken in case of a security incident. Include procedures for isolating compromised instances, changing access credentials, and investigating the incident. 
+        Regularly test and update this plan.
