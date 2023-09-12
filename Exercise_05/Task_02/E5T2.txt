@@ -1,0 +1,48 @@
+# Tools and Documentation
+
+a. Scan infrastructure as code templates.
+    - Tool: 
+        AWS Config Rules: AWS Config allows you to create custom rules to evaluate your AWS resources against desired configurations. You can use Config Rules to assess the compliance of your infrastructure as code templates with best practices.
+        Terraform Security Scanning Tools:
+            Terraform Validator: A tool to validate the syntax and structure of Terraform code.
+            TfSec: Scans Terraform configurations for security issues.
+        AWS CloudFormation Linter: A tool to check the syntax of CloudFormation templates and identify issues.
+        Checkov: An open-source static analysis tool for infrastructure as code files, including Terraform, CloudFormation, and more.
+    - Example compliance violation or vulnerability:
+        1. Excessive Port Openings in Security Groups
+            Description: Your infrastructure as code template defines AWS security groups with overly permissive inbound rules, such as allowing all traffic ("0.0.0.0/0") on all ports.
+            Consequence: This exposes your resources to potential external attacks and increases the attack surface.
+        2. Hardcoded Secrets in Code
+            Description: The scan identifies hardcoded secrets (e.g., API keys, passwords) in your infrastructure code, which could be unintentionally exposed in your version control system.
+            Consequence: Hardcoded secrets can lead to unauthorized access and data breaches if the code is compromised.
+        
+b. Scan AMI’s or containers for OS vulnerabilities.
+    - Tools:
+        Amazon Inspector: AWS Inspector can assess the security of your Amazon Machine Images (AMIs) and containers by running security assessments that check for vulnerabilities and compliance issues.
+        Docker Security Scanning: Docker Hub provides image scanning to check for known vulnerabilities in container images.
+        Clair: An open-source project for the static analysis of vulnerabilities in application containers (e.g., Docker).
+        Trivy: A simple and comprehensive vulnerability scanner for containers and other artifacts, such as AMIs.
+    - Example compliance violation or vulnerability:
+        1. Outdated Software Packages:
+            Description: The operating system or software packages within the AMI or container are not up to date with the latest security patches and updates.
+            Consequence: Outdated packages may contain known vulnerabilities that can be exploited by attackers to compromise the system.
+        2. Open Ports and Services:
+            Description: Unnecessary ports or services are running within the AMI or container, providing potential attack vectors.
+            Consequence: Open ports and services can be exploited by attackers to gain access or launch attacks.
+        3. Weak or Default Passwords:
+            Description: Passwords for user accounts within the OS are weak, easily guessable, or set to default values.
+            Consequence: Weak passwords can lead to unauthorized access and compromise the security of the system.
+
+c. Scan an AWS environment for cloud configuration vulnerabilities.
+    - Tools:
+        AWS Config: AWS Config can continuously monitor and assess the configurations of your AWS resources against predefined rules, helping you identify and remediate configuration vulnerabilities.
+        AWS Trusted Advisor: Trusted Advisor provides recommendations for improving your AWS environment's security, including best practices checks for security groups, IAM, and other AWS services.
+        AWS Security Hub: A service that provides a comprehensive view of your security posture, including automated checks for AWS configuration vulnerabilities.
+
+    - Example compliance violation or vulnerability:
+        1. Unencrypted Data at Rest:
+            Description: The scan identifies that some of your Amazon RDS instances or S3 buckets do not have encryption-at-rest enabled.
+            Consequence: Unencrypted data at rest poses a risk of data exposure in the event of unauthorized access to storage resources.
+        2. Overly Permissive IAM Policies
+            Description: The scan flags IAM policies with overly broad permissions, granting more access than necessary to AWS resources.
+            Consequence: This increases the risk of privilege escalation and unauthorized resource access.
